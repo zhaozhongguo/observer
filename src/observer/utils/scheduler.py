@@ -13,9 +13,9 @@ try:
 except ImportError:
     setproctitle = None
 
-from diamond.utils.signals import signal_to_exception
-from diamond.utils.signals import SIGALRMException
-from diamond.utils.signals import SIGHUPException
+from observer.utils.signals import signal_to_exception
+from observer.utils.signals import SIGALRMException
+from observer.utils.signals import SIGHUPException
 
 
 def collector_process(collector, metric_queue, log):

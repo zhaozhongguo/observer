@@ -9,11 +9,11 @@ import traceback
 import pkg_resources
 import imp
 
-from diamond.util import load_class_from_name
-from diamond.collector import Collector
-from diamond.handler.Handler import Handler
+from observer.util import load_class_from_name
+from observer.collector import Collector
+from observer.handler.Handler import Handler
 
-logger = logging.getLogger('diamond')
+logger = logging.getLogger('observer')
 
 
 def load_include_path(paths):
@@ -105,7 +105,7 @@ def load_collectors(paths):
     Load all collectors
     """
     collectors = load_collectors_from_paths(paths)
-    collectors.update(load_collectors_from_entry_point('diamond.collectors'))
+    collectors.update(load_collectors_from_entry_point('observer.collectors'))
     return collectors
 
 

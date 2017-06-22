@@ -7,40 +7,40 @@
 [server]
 
 # Handlers for published metrics.
-handlers = diamond.handler.graphite.GraphiteHandler, diamond.handler.archive.ArchiveHandler
+handlers = observer.handler.graphite.GraphiteHandler, observer.handler.archive.ArchiveHandler
 
-# User diamond will run as
+# User observer will run as
 # Leave empty to use the current user
 user =
 
-# Group diamond will run as
+# Group observer will run as
 # Leave empty to use the current group
 group =
 
 # Pid file, on systemd if not using default PID file
-# make sure you also change systemd's diamond unit.
-pid_file = /var/run/diamond.pid
+# make sure you also change systemd's observer unit.
+pid_file = /var/run/observer.pid
 
 # Directory to load collector modules from
-collectors_path = /usr/share/diamond/collectors/
+collectors_path = /usr/share/observer/collectors/
 
 # Directory to load collector configs from
-collectors_config_path = /etc/diamond/collectors/
+collectors_config_path = /etc/observer/collectors/
 
 # Number of seconds between each collector load
 # collectors_load_delay = 1.0
 
 # Directory to load handler configs from
-handlers_config_path = /etc/diamond/handlers/
+handlers_config_path = /etc/observer/handlers/
 
 # Directory to load handler modules from
-handlers_path = /usr/share/diamond/handlers/
+handlers_path = /usr/share/observer/handlers/
 
 # Maximum number of metrics waiting to be processed by handlers.
 # When metric queue is full, new metrics are dropped.
 metric_queue_size = 16384
 
-# Abort the diamond process if the handler process exits
+# Abort the observer process if the handler process exits
 abort_on_handlers_process_exit = False
 
 ################################################################################
@@ -56,7 +56,7 @@ keys = rotated_file
 [[ArchiveHandler]]
 
 # File to write archive log files
-log_file = /var/log/diamond/archive.log
+log_file = /var/log/observer/archive.log
 
 # Number of days to keep archive log files
 days = 7
@@ -99,7 +99,7 @@ hostname    = 127.0.0.1
 port        = 3306
 username    = root
 password    =
-database    = diamond
+database    = observer
 table       = metrics
 # INT UNSIGNED NOT NULL
 col_time    = timestamp
@@ -239,7 +239,7 @@ class = handlers.TimedRotatingFileHandler
 level = DEBUG
 formatter = default
 # rotate at midnight, each day and keep 7 days
-args = ('/var/log/diamond/diamond.log', 'midnight', 1, 7)
+args = ('/var/log/observer/observer.log', 'midnight', 1, 7)
 
 [formatter_default]
 
@@ -249,11 +249,11 @@ datefmt =
 ################################################################################
 ### Options for config merging
 # [configs]
-# path = "/etc/diamond/configs/"
+# path = "/etc/observer/configs/"
 # extension = ".conf"
 #-------------------------------------------------------------------------------
 # Example:
-# /etc/diamond/configs/net.conf
+# /etc/observer/configs/net.conf
 # [collectors]
 #
 # [[NetworkCollector]]

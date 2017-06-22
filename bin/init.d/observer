@@ -1,15 +1,15 @@
 #!/bin/sh
 #
-# diamond	Start the diamond statistics collector
+# observer	Start the observer statistics collector
 #
 # chkconfig: 2345 25 75
 # description: Diamond is a daemon and toolset for gathering system statistics \
 #              and publishing them to Graphite.
 # processname: python
-# config: /etc/diamond/diamond.conf
-# pidfile: /var/run/diamond.pid
+# config: /etc/observer/observer.conf
+# pidfile: /var/run/observer.pid
 ### BEGIN INIT INFO
-# Provides:          diamond
+# Provides:          observer
 # Required-Start:    $network $local_fs $remote_fs
 # Required-Stop:     $network $local_fs $remote_fs
 # Default-Start:     2 3 4 5
@@ -20,13 +20,13 @@
 ### END INIT INFO
 
 # Author: Sam Bashton <sam@bashton.com>
-NAME=diamond
-DAEMON=/usr/bin/diamond
-DAEMON_ARGS="-p /var/run/diamond.pid"
-PIDFILE=/var/run/diamond.pid
-SCRIPTNAME=/etc/init.d/diamond
+NAME=observer
+DAEMON=/usr/bin/observer
+DAEMON_ARGS="-p /var/run/observer.pid"
+PIDFILE=/var/run/observer.pid
+SCRIPTNAME=/etc/init.d/observer
 LOCKDIR=/var/lock/subsys
-LOCKFILE=/var/lock/subsys/diamond
+LOCKFILE=/var/lock/subsys/observer
 
 . /etc/rc.d/init.d/functions
 
@@ -65,7 +65,7 @@ stop() {
   retval=$?
   if [ $retval -ne 0 ];
   then
-    killall -q diamond
+    killall -q observer
   fi
   if [ -e "${LOCKFILE}" ]
   then

@@ -1,5 +1,5 @@
 DESTDIR=/
-PROJECT=diamond
+PROJECT=observer
 VERSION :=$(shell bash version.sh )
 RELEASE :=$(shell ls -1 dist/*.noarch.rpm 2>/dev/null | wc -l )
 HASH	:=$(shell git rev-parse HEAD )
@@ -24,10 +24,10 @@ all:
 	@echo "make clean    - Get rid of scratch and byte files"
 
 run:
-	./bin/diamond --configfile=conf/diamond.conf --foreground --log-stdout
+	./bin/observer --configfile=conf/observer.conf --foreground --log-stdout
 
 config:
-	./bin/diamond-setup --configfile=conf/diamond.conf
+	./bin/observer-setup --configfile=conf/observer.conf
 
 watch:
 	watchr test.watchr
@@ -36,7 +36,7 @@ test:
 	./test.py
 
 docs: version
-	./build_doc.py --configfile=conf/diamond.conf
+	./build_doc.py --configfile=conf/observer.conf
 	make test
 
 sdist: version
@@ -87,8 +87,8 @@ buildsourcedeb: version
 ebuild: buildebuild
 
 buildebuild: version
-	cat gentoo/diamond.ebuild | sed "s/GIT_HASH/${HASH}/" >> gentoo/diamond-$(VERSION).ebuild
-	@echo "ebuild is at gentoo/diamond-$(VERSION).ebuild"
+	cat gentoo/observer.ebuild | sed "s/GIT_HASH/${HASH}/" >> gentoo/observer-$(VERSION).ebuild
+	@echo "ebuild is at gentoo/observer-$(VERSION).ebuild"
 
 tar: sdist
 

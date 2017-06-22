@@ -18,22 +18,22 @@ sys.path.append(
         os.path.join(
             os.path.dirname(__file__), "../")))
 
-from diamond.utils.classes import initialize_collector
-from diamond.utils.classes import load_collectors
-from diamond.utils.classes import load_dynamic_class
-from diamond.utils.classes import load_handlers
-from diamond.utils.classes import load_include_path
+from observer.utils.classes import initialize_collector
+from observer.utils.classes import load_collectors
+from observer.utils.classes import load_dynamic_class
+from observer.utils.classes import load_handlers
+from observer.utils.classes import load_include_path
 
-from diamond.utils.config import load_config
-from diamond.utils.config import str_to_bool
+from observer.utils.config import load_config
+from observer.utils.config import str_to_bool
 
-from diamond.utils.scheduler import collector_process
-from diamond.utils.scheduler import handler_process
+from observer.utils.scheduler import collector_process
+from observer.utils.scheduler import handler_process
 
-from diamond.handler.Handler import Handler
+from observer.handler.Handler import Handler
 
-from diamond.utils.signals import signal_to_exception
-from diamond.utils.signals import SIGHUPException
+from observer.utils.signals import signal_to_exception
+from observer.utils.signals import SIGHUPException
 
 
 class Server(object):
@@ -43,7 +43,7 @@ class Server(object):
 
     def __init__(self, configfile):
         # Initialize Logging
-        self.log = logging.getLogger('diamond')
+        self.log = logging.getLogger('observer')
         # Initialize Members
         self.configfile = configfile
         self.config = None
@@ -103,13 +103,13 @@ class Server(object):
             handlers = [handlers]
 
         # Prevent the Queue Handler from being a normal handler
-        if 'diamond.handler.queue.QueueHandler' in handlers:
-            handlers.remove('diamond.handler.queue.QueueHandler')
+        if 'observer.handler.queue.QueueHandler' in handlers:
+            handlers.remove('observer.handler.queue.QueueHandler')
 
         self.handlers = load_handlers(self.config, handlers)
 
         QueueHandler = load_dynamic_class(
-            'diamond.handler.queue.QueueHandler',
+            'observer.handler.queue.QueueHandler',
             Handler
         )
 

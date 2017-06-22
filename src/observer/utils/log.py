@@ -33,7 +33,7 @@ class DebugFormatter(logging.Formatter):
 
 
 def setup_logging(configfile, stdout=False):
-    log = logging.getLogger('diamond')
+    log = logging.getLogger('observer')
 
     try:
         if sys.version_info >= (2, 6):
